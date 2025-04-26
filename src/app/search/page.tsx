@@ -1,3 +1,11 @@
+// Use a server component as the page root
+export default function SearchPage() {
+  return (
+    <SearchPageContent />
+  );
+}
+
+// Then use client component inside with proper Suspense boundary
 'use client';
 
 import { Suspense } from 'react';
@@ -50,7 +58,7 @@ function SearchResults() {
   );
 }
 
-export default function SearchPage() {
+function SearchPageContent() {
   return (
     <Layout>
       <div className="max-w-screen-2xl mx-auto">
