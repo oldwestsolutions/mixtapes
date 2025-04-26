@@ -8,6 +8,21 @@ const nextConfig = {
       },
     ],
   },
+  // Add redirect for search page to prevent build issues
+  async redirects() {
+    return [
+      {
+        source: '/search',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/search/:path*',
+        destination: '/',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig; 
