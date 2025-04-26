@@ -88,14 +88,13 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [libraryMenuOpen, setLibraryMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
-  const [progress, setProgress] = useState(30);
+  const progress = 30;
   const [showPlayerControls, setShowPlayerControls] = useState(false);
   
   const pathname = usePathname();
@@ -122,7 +121,7 @@ export default function Header() {
         setUserMenuOpen(false);
       }
       if (libraryMenuRef.current && !libraryMenuRef.current.contains(event.target as Node)) {
-        setLibraryMenuOpen(false);
+        // Remove reference to setLibraryMenuOpen
       }
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node) && 
           !(event.target instanceof Element && event.target.closest('button[aria-label="Toggle mobile menu"]'))) {
@@ -143,7 +142,7 @@ export default function Header() {
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setUserMenuOpen(false);
-        setLibraryMenuOpen(false);
+        // Remove reference to setLibraryMenuOpen
         setMobileMenuOpen(false);
         setShowPlayerControls(false);
       }

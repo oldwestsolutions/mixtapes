@@ -150,7 +150,7 @@ export default function Dashboard() {
         {/* Welcome header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">Welcome back, User!</h1>
-          <p className="text-[var(--muted-foreground)]">Here's what's happening with your music today.</p>
+          <p className="text-[var(--muted-foreground)]">Here&apos;s what&apos;s happening with your music today.</p>
         </div>
         
         {/* Stats overview */}

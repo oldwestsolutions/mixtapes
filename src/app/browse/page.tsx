@@ -103,7 +103,7 @@ export default function BrowsePage() {
         
         {/* Editor's Picks */}
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Editor's Picks</h2>
+          <h2 className="text-2xl font-bold mb-6">Editor&apos;s Picks</h2>
           <div className="bg-gradient-to-r from-[var(--primary)] to-[#8757FF] rounded-xl p-8 text-white">
             <h3 className="text-3xl font-bold mb-3">Summer Essentials</h3>
             <p className="text-lg mb-6 opacity-80">The perfect mixtapes to soundtrack your summer adventures</p>
