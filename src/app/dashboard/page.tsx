@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import DashboardPlayer from '@/components/music/DashboardPlayer';
+import MusicLibrary from '@/components/music/MusicLibrary';
 
 // Dashboard stats
 const stats = [
@@ -175,9 +177,13 @@ export default function Dashboard() {
         
         {/* Main content area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Recent activity / mixtapes */}
-          <div className="lg:col-span-2">
-            <div className="bg-[var(--background)] border border-[var(--border)] rounded-xl p-5 shadow-sm mb-6">
+          {/* Left column - Now Playing and Recent Activity */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Music Player with Visualizer */}
+            <DashboardPlayer />
+            
+            {/* Recently played mixtapes */}
+            <div className="bg-[var(--background)] border border-[var(--border)] rounded-xl p-5 shadow-sm">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold">Recently Played</h2>
                 <Link href="/recent" className="text-sm text-[var(--primary)] hover:underline">
@@ -222,53 +228,16 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
-            
-            {/* Recommended mixtapes */}
-            <div className="bg-[var(--background)] border border-[var(--border)] rounded-xl p-5 shadow-sm">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold">Recommended For You</h2>
-                <Link href="/recommended" className="text-sm text-[var(--primary)] hover:underline">
-                  View All
-                </Link>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {Array.from({length: 6}).map((_, index) => (
-                  <div key={index} className="group">
-                    <div className="relative aspect-square bg-[var(--muted)] rounded-md overflow-hidden shadow-sm mb-2 group-hover:shadow-md transition-shadow">
-                      {/* Placeholder for mixtape cover */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 text-[var(--primary)]">
-                          <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      
-                      {/* Play button overlay */}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-12 w-12 rounded-full bg-[var(--primary)] flex items-center justify-center text-white">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polygon points="5 3 19 12 5 21 5 3" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <h3 className="font-medium text-sm truncate">Playlist Title #{index + 1}</h3>
-                    <p className="text-xs text-[var(--muted-foreground)]">Artist Name</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
           
-          {/* Sidebar content */}
+          {/* Right column - Suggested and Library */}
           <div className="space-y-6">
             {/* Suggested artists */}
             <div className="bg-[var(--background)] border border-[var(--border)] rounded-xl p-5 shadow-sm">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold">Suggested Artists</h2>
                 <Link href="/discover" className="text-sm text-[var(--primary)] hover:underline">
-                  See More
+                  View More
                 </Link>
               </div>
               
@@ -276,23 +245,26 @@ export default function Dashboard() {
                 {suggestedArtists.map((artist) => (
                   <div key={artist.id} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-[var(--muted)] flex items-center justify-center overflow-hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                          <circle cx="9" cy="7" r="4" />
-                        </svg>
+                      <div className="h-10 w-10 bg-[var(--muted)] rounded-full overflow-hidden">
+                        {/* Artist image placeholder */}
+                        <div className="h-full w-full flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                          </svg>
+                        </div>
                       </div>
                       <div>
                         <h3 className="font-medium text-sm">{artist.name}</h3>
                         <p className="text-xs text-[var(--muted-foreground)]">{artist.followers} followers</p>
                       </div>
                     </div>
-                    <button
+                    <button 
                       onClick={() => toggleFollow(artist.id)}
-                      className={`text-xs px-3 py-1 rounded-full border ${
+                      className={`px-3 py-1 text-xs rounded-full ${
                         followingStatus[artist.id]
-                          ? 'border-[var(--border)] bg-[var(--muted)] text-[var(--foreground)]'
-                          : 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
+                          ? 'bg-[var(--primary)] text-white'
+                          : 'border border-[var(--primary)] text-[var(--primary)]'
                       }`}
                     >
                       {followingStatus[artist.id] ? 'Following' : 'Follow'}
@@ -302,36 +274,55 @@ export default function Dashboard() {
               </div>
             </div>
             
-            {/* Listening history */}
+            {/* Quick Shortcuts */}
             <div className="bg-[var(--background)] border border-[var(--border)] rounded-xl p-5 shadow-sm">
-              <h2 className="text-lg font-semibold mb-4">Listening Activity</h2>
-              <div className="space-y-2">
-                {Array.from({length: 7}).map((_, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <div className="text-xs text-[var(--muted-foreground)] w-8">{i === 0 ? 'Today' : i === 1 ? 'Mon' : i === 2 ? 'Sun' : i === 3 ? 'Sat' : i === 4 ? 'Fri' : i === 5 ? 'Thu' : 'Wed'}</div>
-                    <div className="h-2 bg-[var(--muted)] rounded-full flex-1 overflow-hidden">
-                      <div 
-                        className="h-full bg-[var(--primary)]" 
-                        style={{ width: `${Math.max(5, Math.random() * 100)}%` }} 
-                      />
-                    </div>
-                    <div className="text-xs text-[var(--muted-foreground)] w-8 text-right">
-                      {Math.floor(Math.random() * 5)}h
-                    </div>
-                  </div>
-                ))}
+              <h2 className="text-lg font-semibold mb-4">Quick Shortcuts</h2>
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/favorites" className="flex flex-col items-center justify-center p-4 bg-[var(--muted)]/50 rounded-lg hover:bg-[var(--muted)] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-2 text-[var(--primary)]">
+                    <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
+                  </svg>
+                  <span className="text-sm">Favorites</span>
+                </Link>
+                <Link href="/playlists" className="flex flex-col items-center justify-center p-4 bg-[var(--muted)]/50 rounded-lg hover:bg-[var(--muted)] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-2 text-[var(--primary)]">
+                    <line x1="8" y1="6" x2="21" y2="6" />
+                    <line x1="8" y1="12" x2="21" y2="12" />
+                    <line x1="8" y1="18" x2="21" y2="18" />
+                    <line x1="3" y1="6" x2="3.01" y2="6" />
+                    <line x1="3" y1="12" x2="3.01" y2="12" />
+                    <line x1="3" y1="18" x2="3.01" y2="18" />
+                  </svg>
+                  <span className="text-sm">Playlists</span>
+                </Link>
+                <Link href="/downloads" className="flex flex-col items-center justify-center p-4 bg-[var(--muted)]/50 rounded-lg hover:bg-[var(--muted)] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-2 text-[var(--primary)]">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span className="text-sm">Downloads</span>
+                </Link>
+                <Link href="/history" className="flex flex-col items-center justify-center p-4 bg-[var(--muted)]/50 rounded-lg hover:bg-[var(--muted)] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-2 text-[var(--primary)]">
+                    <path d="M6 2v6h.01" />
+                    <path d="M6 13c3.5 0 7-2 7-7h.01" />
+                    <circle cx="15" cy="9" r="1" />
+                    <circle cx="16" cy="16" r="1" />
+                    <path d="M12 19c-2.2 0-5-1.6-5-5.5" />
+                    <path d="M7 13.5C7 14 7.5 18 11 18" />
+                    <path d="M17 17c.5 1.5 2 2 4 2" />
+                  </svg>
+                  <span className="text-sm">History</span>
+                </Link>
               </div>
             </div>
-            
-            {/* Pro upgrade card */}
-            <div className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary)]/80 rounded-xl p-5 text-white shadow-sm">
-              <h2 className="text-lg font-semibold mb-2">Upgrade to Pro</h2>
-              <p className="text-sm opacity-90 mb-4">Get unlimited access to millions of mixtapes and exclusive features.</p>
-              <button className="w-full py-2 rounded-full bg-white text-[var(--primary)] font-medium text-sm hover:bg-opacity-90 transition-colors">
-                Upgrade Now
-              </button>
-            </div>
           </div>
+        </div>
+        
+        {/* Music Library Section */}
+        <div className="mt-8">
+          <MusicLibrary />
         </div>
       </div>
     </div>
