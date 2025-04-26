@@ -1,4 +1,6 @@
 src/app/mixtape/
 **/mixtape/[id]/page.tsx
 src/app/search/
-**/search/page.tsx 
+**/search/page.tsx
+src/app/dashboard/
+**/dashboard/page.tsx 
