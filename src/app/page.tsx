@@ -13,22 +13,22 @@ export default function Home() {
           </p>
         </div>
         
-        <MixtapeSection 
-          title="Featured Mixtapes" 
-          mixtapes={featuredMixtapes.slice(0, 16)} 
-          seeAllHref="/featured"
+        <MixtapeSection
+          title="Featured"
+          mixtapes={featuredMixtapes}
+          seeAllHref="/mixtapes/featured"
         />
-        
-        <MixtapeSection 
-          title="Trending Now" 
-          mixtapes={trendingMixtapes.slice(0, 16)} 
-          seeAllHref="/trending"
+
+        <MixtapeSection
+          title="Top 10"
+          mixtapes={trendingMixtapes.slice(0, 10)}
+          seeAllHref="/mixtapes/trending"
         />
-        
-        <MixtapeSection 
-          title="New Releases" 
-          mixtapes={newReleases.slice(0, 16)} 
-          seeAllHref="/new-releases"
+
+        <MixtapeSection
+          title="New Releases"
+          mixtapes={newReleases.slice(0, 16)}
+          seeAllHref="/mixtapes/new"
         />
         
         <MixtapeSection 
