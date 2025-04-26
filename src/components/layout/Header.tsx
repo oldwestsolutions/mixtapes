@@ -195,6 +195,7 @@ export default function Header() {
     if (searchValue.trim()) {
       router.push(`/search?q=${encodeURIComponent(searchValue.trim())}`);
       setSearchValue('');
+      setShowSearch(false);
     }
   };
 
@@ -789,11 +790,16 @@ export default function Header() {
         {navItems.map((item) => (
           <Link
             key={item.path}
-            href={item.path === '/search' ? '#' : item.path}
+            href={item.path}
             onClick={(e) => {
               if (item.path === '/search') {
-                e.preventDefault();
-                setShowSearch(true);
+                if (searchValue.trim()) {
+                  e.preventDefault();
+                  router.push(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+                } else {
+                  e.preventDefault();
+                  setShowSearch(true);
+                }
               }
             }}
             className={`flex flex-col items-center justify-center w-full h-full ${
