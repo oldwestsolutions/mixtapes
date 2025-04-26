@@ -1,17 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mixtapes
+
+A modern web application for streaming and discovering mixtapes. This platform offers a user-friendly interface to browse, search, and play music.
+
+## Features
+
+- User authentication
+- Music player with playback controls
+- Responsive design for all devices
+- Dashboard with personalized recommendations
+- Search functionality
+
+## Technology Stack
+
+- Next.js
+- React
+- Tailwind CSS
+- Vercel Analytics
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
