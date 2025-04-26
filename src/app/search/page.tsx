@@ -24,21 +24,22 @@ function SearchResults() {
     <div className="mb-10">
       <h2 className="text-2xl font-bold mb-6">Search Results for "{query}"</h2>
       {filteredMixtapes.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
           {filteredMixtapes.map((mixtape: Mixtape) => (
             <div key={mixtape.id} className="mixtape-card">
-              {/* Mixtape card content */}
-              <div className="relative aspect-square rounded-lg overflow-hidden mb-3">
-                <Image 
-                  src={mixtape.coverUrl} 
-                  alt={mixtape.title}
-                  className="object-cover w-full h-full"
-                  width={300}
-                  height={300}
-                />
-              </div>
-              <h3 className="font-medium text-[var(--foreground)] line-clamp-1">{mixtape.title}</h3>
-              <p className="text-sm text-[var(--muted-foreground)] line-clamp-1">{mixtape.artist}</p>
+              <Link href={`/mixtape/${mixtape.id}`}>
+                <div className="relative aspect-square rounded-lg overflow-hidden mb-3 group-hover:opacity-80 transition-opacity">
+                  <Image 
+                    src={mixtape.coverUrl} 
+                    alt={mixtape.title}
+                    className="object-cover w-full h-full"
+                    width={300}
+                    height={300}
+                  />
+                </div>
+                <h3 className="font-medium text-[var(--foreground)] line-clamp-1">{mixtape.title}</h3>
+                <p className="text-sm text-[var(--muted-foreground)] line-clamp-1">{mixtape.artist}</p>
+              </Link>
             </div>
           ))}
         </div>
