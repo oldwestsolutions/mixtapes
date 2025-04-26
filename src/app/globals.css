@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #fa2c5b;
+  --secondary: #f7f7f7;
+  --accent: #fa2c5b;
+  --dutch-blue: #005999;
+  --dutch-orange: #FF6B00;
+  --muted: #f0f0f0;
+  --muted-foreground: #6e6e6e;
+  --border: #e5e5e5;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --hover-transition: 200ms ease;
+  --content-width: 1280px;
+  --header-height: 4rem;
+  --border-radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #fa2c5b;
+    --secondary: #1a1a1a;
+    --accent: #fa2c5b;
+    --dutch-blue: #1a73e8;
+    --dutch-orange: #FF8533;
+    --muted: #1e1e1e;
+    --muted-foreground: #a0a0a0;
+    --border: #333333;
+    --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Modern typography - Dutch design inspired */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+/* Cleaner card styling */
+.card {
+  background: var(--background);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: all var(--hover-transition);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+}
+
+/* Dutch-inspired grid system */
+.dutch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Custom scrollbar - more Apple-like */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  opacity: 0.5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Better input range styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: var(--foreground);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--primary);
+  transform: scale(1.2);
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Focus styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Transitions for elements */
+a, button {
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-duration: var(--hover-transition);
+  transition-timing-function: ease;
+}
+
+/* Modern form elements */
+input, select, textarea {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all var(--hover-transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary)/0.1;
+}
+
+/* Container for responsive layout */
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
