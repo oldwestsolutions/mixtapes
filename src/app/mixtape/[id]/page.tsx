@@ -5,11 +5,12 @@ import TrackList from '@/components/mixtapes/TrackList';
 import { notFound } from 'next/navigation';
 import { getImageUrl } from '@/lib/placeholder';
 
-interface MixtapeDetailPageProps {
+type MixtapeDetailPageProps = {
   params: {
     id: string;
   };
-}
+  searchParams: Record<string, string | string[] | undefined>;
+};
 
 export default function MixtapeDetailPage({ params }: MixtapeDetailPageProps) {
   const mixtape = getMixtapeById(params.id);
