@@ -1,6 +1,2 @@
-src/app/mixtape/
-**/mixtape/[id]/page.tsx
-src/app/search/
-**/search/page.tsx
-src/app/dashboard/
-**/dashboard/page.tsx 
+# Just ignore node_modules, let the build config handle the rest
+node_modules 
