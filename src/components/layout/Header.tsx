@@ -241,7 +241,7 @@ export default function Header() {
               </div>
             </button>
             
-            {/* Search bar (completely rebuilt with better symmetry) */}
+            {/* Search bar with fixed icon-text spacing */}
             <div className="relative w-44 sm:w-52 md:w-64">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[var(--muted-foreground)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -254,7 +254,7 @@ export default function Header() {
                 placeholder="Search mixtapes..."
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                className="w-full h-10 pl-11 pr-4 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
+                className="w-full h-10 pl-12 pr-4 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
               />
             </div>
             
@@ -615,7 +615,7 @@ export default function Header() {
                   placeholder="Search mixtapes..."
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
-                  className="w-full h-10 pl-11 pr-4 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
+                  className="w-full h-10 pl-12 pr-4 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
                 />
               </div>
             </div>
