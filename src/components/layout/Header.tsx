@@ -96,6 +96,7 @@ export default function Header() {
   const [volume, setVolume] = useState(80);
   const progress = 30;
   const [showPlayerControls, setShowPlayerControls] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   
   const pathname = usePathname();
   const router = useRouter();
@@ -188,6 +189,15 @@ export default function Header() {
     document.documentElement.style.setProperty('--header-height', '4rem'); // 64px
   }, []);
   
+  // Search form handler
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchValue.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+      setSearchValue('');
+    }
+  };
+
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[var(--header-height)] ${isScrolled ? 'bg-[var(--background)]/95 backdrop-blur-md shadow-sm' : 'bg-[var(--background)]'}`}>
@@ -240,16 +250,28 @@ export default function Header() {
               </div>
             </button>
             
-            {/* Search bar with no icon */}
-            <div className="relative w-44 sm:w-52 md:w-64">
+            {/* Search input */}
+            <form 
+              className="relative w-full max-w-md hidden md:flex"
+              onSubmit={handleSearchSubmit}
+            >
               <input
                 type="text"
-                placeholder="Search mixtapes..."
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                className="w-full h-10 px-4 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
+                placeholder="Search for mixtapes, artists, or tracks..."
+                className="w-full h-9 px-4 pr-10 rounded-full bg-[var(--muted)] bg-opacity-30 border border-transparent text-sm focus:bg-[var(--background)] focus:border-[var(--border)] outline-none transition-colors"
               />
-            </div>
+              <button 
+                type="submit"
+                className="absolute right-0 top-0 h-9 w-9 flex items-center justify-center text-[var(--muted-foreground)]"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </button>
+            </form>
             
             {/* Desktop music player trigger */}
             <div 
@@ -729,6 +751,60 @@ export default function Header() {
           </div>
         </div>
       )}
+
+      {/* Mobile search popup */}
+      {showSearch && (
+        <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setShowSearch(false)}>
+          <div 
+            className="fixed top-[calc(var(--header-height)+0.75rem)] left-4 right-4 bg-[var(--background)] border border-[var(--border)] rounded-lg shadow-lg p-4 transform transition-transform fade-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <form onSubmit={handleSearchSubmit}>
+              <div className="relative">
+                <input 
+                  type="text" 
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder="Search for mixtapes, artists, or tracks..."
+                  className="w-full h-12 px-4 pr-10 rounded-lg bg-[var(--muted)]/30 border border-[var(--border)] outline-none"
+                  autoFocus
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-3 top-3 text-[var(--muted-foreground)]"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile menu buttons */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[var(--background)] border-t border-[var(--border)] flex items-center justify-around h-14 z-20 lg:hidden">
+        {navItems.map((item) => (
+          <Link
+            key={item.path}
+            href={item.path === '/search' ? '#' : item.path}
+            onClick={(e) => {
+              if (item.path === '/search') {
+                e.preventDefault();
+                setShowSearch(true);
+              }
+            }}
+            className={`flex flex-col items-center justify-center w-full h-full ${
+              pathname === item.path ? 'text-[var(--primary)]' : 'text-[var(--muted-foreground)]'
+            }`}
+          >
+            {item.icon}
+            <span className="text-xs mt-1">{item.name}</span>
+          </Link>
+        ))}
+      </div>
     </>
   );
 } 

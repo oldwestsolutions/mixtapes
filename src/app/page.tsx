@@ -15,25 +15,25 @@ export default function Home() {
         
         <MixtapeSection 
           title="Featured Mixtapes" 
-          mixtapes={featuredMixtapes.slice(0, 6)} 
+          mixtapes={featuredMixtapes.slice(0, 8)} 
           seeAllHref="/featured"
         />
         
         <MixtapeSection 
           title="Trending Now" 
-          mixtapes={trendingMixtapes} 
+          mixtapes={trendingMixtapes.slice(0, 8)} 
           seeAllHref="/trending"
         />
         
         <MixtapeSection 
           title="New Releases" 
-          mixtapes={newReleases.slice(0, 6)} 
+          mixtapes={newReleases.slice(0, 8)} 
           seeAllHref="/new-releases"
         />
         
         <MixtapeSection 
           title="Popular Mixtapes" 
-          mixtapes={popularMixtapes.slice(0, 6)} 
+          mixtapes={popularMixtapes.slice(0, 8)} 
           seeAllHref="/popular"
         />
       </div>
