@@ -9,7 +9,7 @@ export default function Home() {
         <div className="mb-10">
           <h1 className="text-4xl font-bold mb-3">Listen Now</h1>
           <p className="text-lg text-[var(--muted-foreground)]">
-            Discover the best mixtapes curated for your listening pleasure.
+            Discover the best mixtapes curated for your listening pleasure. Updated regularly.
           </p>
         </div>
         
