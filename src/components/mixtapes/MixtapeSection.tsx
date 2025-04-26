@@ -26,7 +26,7 @@ export default function MixtapeSection({ title, mixtapes, seeAllHref }: MixtapeS
         )}
       </div>
       
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 sm:gap-3 md:gap-4">
         {mixtapes.map((mixtape) => (
           <MixtapeCard 
             key={mixtape.id}
