@@ -30,14 +30,14 @@ export default function Home() {
         {/* Top sections side by side on all screen sizes */}
         <div className="mb-8">
           <div className="grid grid-cols-2 gap-3">
-            {/* Featured section - 2x2 grid */}
-            <div className="flex flex-col">
+            {/* Featured section - single column on mobile, 2x2 grid on larger screens */}
+            <div className="flex flex-col h-full">
               <div className="mb-2 sm:mb-4">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Featured</h2>
               </div>
-              <div className="bg-[var(--card)] rounded-lg overflow-hidden flex-1 pb-2">
-                <div className="grid grid-cols-2 gap-2 p-2">
-                  {featuredMixtapes.slice(0, 4).map((mixtape) => (
+              <div className="bg-[var(--card)] rounded-lg overflow-hidden flex-1 p-3 flex flex-col justify-between">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3 h-full">
+                  {featuredMixtapes.slice(0, 4).map((mixtape, index) => (
                     <div 
                       key={mixtape.id} 
                       className="bg-[var(--card)] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:transform hover:translate-y-[-4px] cursor-pointer"
@@ -46,9 +46,9 @@ export default function Home() {
                       <div className="aspect-square relative overflow-hidden">
                         <img src={mixtape.coverUrl} alt={mixtape.title} className="w-full h-full object-cover" />
                       </div>
-                      <div className="p-1 sm:p-2">
-                        <h3 className="font-medium text-xs truncate">{mixtape.title}</h3>
-                        <p className="text-[10px] text-[var(--muted-foreground)] truncate">{mixtape.artist}</p>
+                      <div className="p-3">
+                        <h3 className="font-medium text-sm truncate">{mixtape.title}</h3>
+                        <p className="text-xs text-[var(--muted-foreground)] truncate">{mixtape.artist}</p>
                       </div>
                     </div>
                   ))}
@@ -57,7 +57,7 @@ export default function Home() {
             </div>
             
             {/* Top 10 section - showing all 10 mixtapes in a 2-column layout with vertical cards */}
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <div className="mb-2 sm:mb-4">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Top 10</h2>
               </div>

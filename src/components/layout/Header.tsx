@@ -715,32 +715,6 @@ export default function Header() {
           </div>
         </div>
       )}
-
-      {/* Mobile menu buttons */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[var(--background)] border-t border-[var(--border)] flex items-center justify-around h-14 z-20 lg:hidden">
-        {navItems.map((item) => (
-          <Link
-            key={item.path}
-            href={item.path}
-            onClick={(e) => {
-              if (item.path === '/search') {
-                e.preventDefault();
-                if (searchValue.trim()) {
-                  window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
-                } else {
-                  window.location.href = '/search';
-                }
-              }
-            }}
-            className={`flex flex-col items-center justify-center w-full h-full ${
-              pathname === item.path ? 'text-[var(--primary)]' : 'text-[var(--muted-foreground)]'
-            }`}
-          >
-            {item.icon}
-            <span className="text-xs mt-1">{item.name}</span>
-          </Link>
-        ))}
-      </div>
     </>
   );
 } 
