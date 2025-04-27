@@ -268,8 +268,8 @@ export default function Header() {
                 className="absolute inset-0 flex items-center justify-center bg-[var(--muted)]"
                 onClick={(e) => {
                   e.stopPropagation();
-                  // Navigate to the iPod-style player
-                  window.location.href = `/player?title=${encodeURIComponent('Summer Vibes')}&artist=${encodeURIComponent('DJ Sunshine')}&cover=${encodeURIComponent('https://images.unsplash.com/photo-1534131707746-25d604851a1f?q=80&w=1000')}`;
+                  // Navigate to the iPod-style player - simplified approach without params
+                  window.location.href = `/player`;
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
@@ -425,8 +425,8 @@ export default function Header() {
               <div 
                 className="relative h-14 w-14 bg-[var(--muted)] rounded-md overflow-hidden shadow-sm cursor-pointer"
                 onClick={() => {
-                  // Navigate to the iPod-style player
-                  window.location.href = `/player?title=${encodeURIComponent('Summer Vibes')}&artist=${encodeURIComponent('DJ Sunshine')}&cover=${encodeURIComponent('https://images.unsplash.com/photo-1534131707746-25d604851a1f?q=80&w=1000')}`;
+                  // Navigate to the iPod-style player - simplified approach without params
+                  window.location.href = `/player`;
                 }}
               >
                 <div className="absolute inset-0 flex items-center justify-center">
