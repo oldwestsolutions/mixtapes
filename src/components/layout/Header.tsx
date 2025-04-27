@@ -264,7 +264,14 @@ export default function Header() {
               onClick={() => setShowPlayerControls(!showPlayerControls)}
             >
               {/* Album artwork */}
-              <div className="absolute inset-0 flex items-center justify-center bg-[var(--muted)]">
+              <div 
+                className="absolute inset-0 flex items-center justify-center bg-[var(--muted)]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Navigate to the iPod-style player
+                  window.location.href = `/player?title=${encodeURIComponent('Summer Vibes')}&artist=${encodeURIComponent('DJ Sunshine')}&cover=${encodeURIComponent('https://images.unsplash.com/photo-1534131707746-25d604851a1f?q=80&w=1000')}`;
+                }}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
                   <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
                 </svg>
@@ -415,7 +422,13 @@ export default function Header() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="relative h-14 w-14 bg-[var(--muted)] rounded-md overflow-hidden shadow-sm">
+              <div 
+                className="relative h-14 w-14 bg-[var(--muted)] rounded-md overflow-hidden shadow-sm cursor-pointer"
+                onClick={() => {
+                  // Navigate to the iPod-style player
+                  window.location.href = `/player?title=${encodeURIComponent('Summer Vibes')}&artist=${encodeURIComponent('DJ Sunshine')}&cover=${encodeURIComponent('https://images.unsplash.com/photo-1534131707746-25d604851a1f?q=80&w=1000')}`;
+                }}
+              >
                 <div className="absolute inset-0 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
                     <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
