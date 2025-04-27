@@ -35,19 +35,9 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Add redirect for search page to prevent build issues
+  // Add redirect for dashboard page to prevent build issues
   async redirects() {
     return [
-      {
-        source: '/search',
-        destination: '/',
-        permanent: false,
-      },
-      {
-        source: '/search/:path*',
-        destination: '/',
-        permanent: false,
-      },
       {
         source: '/dashboard',
         destination: '/',

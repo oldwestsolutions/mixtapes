@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,7 +14,8 @@ export default function SearchPage() {
   const [results, setResults] = useState({ mixtapes: [], artists: [], tracks: [] });
   const [activeTab, setActiveTab] = useState('all');
 
-  const allMixtapes = [...featuredMixtapes, ...newReleases, ...popularMixtapes, ...trendingMixtapes];
+  // Memoize the allMixtapes array to prevent recreation on each render
+  const allMixtapes = useMemo(() => [...featuredMixtapes, ...newReleases, ...popularMixtapes, ...trendingMixtapes], []);
 
   // Perform search when query changes
   useEffect(() => {
@@ -74,14 +75,8 @@ export default function SearchPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search mixtapes, artists, or tracks..."
-                className="w-full h-12 px-4 pr-10 rounded-lg bg-[#1a1a1a] border border-[var(--border)] outline-none text-white focus:border-[var(--primary)]"
+                className="w-full h-12 px-4 rounded-lg bg-[#1a1a1a] border border-[var(--border)] outline-none text-white focus:border-[var(--primary)]"
               />
-              <div className="absolute right-3 top-3 text-[var(--muted-foreground)]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-              </div>
             </div>
           </div>
           

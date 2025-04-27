@@ -9,6 +9,11 @@ interface MixtapeSectionProps {
 }
 
 export default function MixtapeSection({ title, mixtapes, seeAllHref }: MixtapeSectionProps) {
+  // Special grid layout for Top 10 section
+  const gridClass = title === "Top 10" 
+    ? "grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2 sm:gap-3 md:gap-4"
+    : "grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 sm:gap-3 md:gap-4";
+
   return (
     <section className="mb-16">
       <div className="flex items-center justify-between mb-6">
@@ -26,7 +31,7 @@ export default function MixtapeSection({ title, mixtapes, seeAllHref }: MixtapeS
         )}
       </div>
       
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 sm:gap-3 md:gap-4">
+      <div className={gridClass}>
         {mixtapes.map((mixtape) => (
           <MixtapeCard 
             key={mixtape.id}

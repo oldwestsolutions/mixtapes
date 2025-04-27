@@ -11,9 +11,7 @@ const navItems = [
     path: '/',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 18V5l12-2v13" />
-        <circle cx="6" cy="18" r="3" />
-        <circle cx="18" cy="16" r="3" />
+        <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
       </svg>
     )
   },
@@ -193,7 +191,8 @@ export default function Header() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchValue.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+      // Use direct window location change for guaranteed navigation
+      window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
       setSearchValue('');
       setShowSearch(false);
     }
@@ -206,30 +205,10 @@ export default function Header() {
         <div className="container h-full mx-auto px-4 flex items-center justify-between">
           {/* Left section: Mobile menu button, logo */}
           <div className="flex items-center gap-4">
-            {/* Mobile menu button */}
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex items-center justify-center w-8 h-8 text-[var(--foreground)]"
-              aria-label="Toggle mobile menu"
-            >
-              {mobileMenuOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="4" x2="20" y1="12" y2="12"></line>
-                  <line x1="4" x2="20" y1="6" y2="6"></line>
-                  <line x1="4" x2="20" y1="18" y2="18"></line>
-                </svg>
-              )}
-            </button>
-            
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-[var(--primary)]">
-                <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
+                <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
               </svg>
               <h1 className="text-xl font-semibold text-[var(--foreground)] hidden sm:flex">
                 <span className="text-[var(--primary)]">mixtapes</span><span className="opacity-60">.net</span>
@@ -239,6 +218,20 @@ export default function Header() {
           
           {/* Right section: Search, library and user */}
           <div className="flex items-center gap-3 sm:gap-4">
+            {/* Mobile search button */}
+            <button 
+              className="md:hidden h-9 w-9 rounded-full bg-[var(--muted)]/70 flex items-center justify-center text-[var(--foreground)]"
+              onClick={() => {
+                // Direct navigation to search page
+                window.location.href = '/search';
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </button>
+            
             {/* Mobile player button - shows album artwork */}
             <button 
               className="lg:hidden h-9 w-9 rounded-md overflow-hidden flex items-center justify-center relative shadow-sm"
@@ -246,7 +239,7 @@ export default function Header() {
             >
               <div className="absolute inset-0 flex items-center justify-center bg-[var(--muted)]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
-                  <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
+                  <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
                 </svg>
               </div>
             </button>
@@ -261,17 +254,8 @@ export default function Header() {
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 placeholder="Search for mixtapes, artists, or tracks..."
-                className="w-full h-9 px-4 pr-10 rounded-full bg-[var(--muted)] bg-opacity-30 border border-transparent text-sm focus:bg-[var(--background)] focus:border-[var(--border)] outline-none transition-colors"
+                className="w-full h-9 px-4 rounded-full bg-[var(--muted)] bg-opacity-30 border border-transparent text-sm focus:bg-[var(--background)] focus:border-[var(--border)] outline-none transition-colors"
               />
-              <button 
-                type="submit"
-                className="absolute right-0 top-0 h-9 w-9 flex items-center justify-center text-[var(--muted-foreground)]"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-              </button>
             </form>
             
             {/* Desktop music player trigger */}
@@ -282,7 +266,7 @@ export default function Header() {
               {/* Album artwork */}
               <div className="absolute inset-0 flex items-center justify-center bg-[var(--muted)]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
-                  <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
+                  <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
                 </svg>
               </div>
               
@@ -300,93 +284,6 @@ export default function Header() {
                 )}
               </div>
             </div>
-            
-            {/* Expanded player controls */}
-            {showPlayerControls && (
-              <div 
-                ref={playerControlsRef}
-                className="absolute top-full right-16 mt-3 w-80 bg-[var(--background)] border border-[var(--border)] rounded-lg shadow-lg p-3 z-50 fade-in"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="relative h-14 w-14 bg-[var(--muted)] rounded-md overflow-hidden shadow-sm">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
-                        <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-medium text-sm mb-1">Currently no mixtape selected</h3>
-                    <p className="text-xs text-[var(--muted-foreground)]">Select a mixtape to play</p>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col items-center gap-1.5 w-full">
-                  <div className="flex items-center gap-5 justify-center">
-                    <button className="text-[var(--foreground)] opacity-60 hover:opacity-100 transition-opacity">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M19 20 9 12l10-8v16Z" />
-                        <path d="M5 19V5" />
-                      </svg>
-                    </button>
-                    
-                    <button 
-                      className="h-10 w-10 rounded-full bg-[var(--foreground)] text-[var(--background)] flex items-center justify-center hover:scale-105 transition-transform"
-                      onClick={() => setIsPlaying(!isPlaying)}
-                    >
-                      {isPlaying ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="6" y="4" width="4" height="16" />
-                          <rect x="14" y="4" width="4" height="16" />
-                        </svg>
-                      ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polygon points="5 3 19 12 5 21 5 3" />
-                        </svg>
-                      )}
-                    </button>
-                    
-                    <button className="text-[var(--foreground)] opacity-60 hover:opacity-100 transition-opacity">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="m5 4 10 8-10 8V4Z" />
-                        <path d="M19 5v14" />
-                      </svg>
-                    </button>
-                  </div>
-                  
-                  <div className="w-full flex items-center gap-2 text-xs mt-2">
-                    <span className="text-[var(--muted-foreground)]">0:00</span>
-                    <div className="flex-1 h-1 bg-[var(--muted)] rounded-full overflow-hidden group cursor-pointer">
-                      <div 
-                        className="h-full bg-[var(--foreground)] group-hover:bg-[var(--primary)] transition-colors"
-                        style={{ width: `${progress}%` }} 
-                      />
-                    </div>
-                    <span className="text-[var(--muted-foreground)]">3:45</span>
-                  </div>
-                  
-                  <div className="w-full flex items-center gap-2 mt-2">
-                    <button className="text-[var(--foreground)] opacity-60 hover:opacity-100 transition-opacity">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                      </svg>
-                    </button>
-                    <input 
-                      type="range" 
-                      min="0" 
-                      max="100" 
-                      value={volume}
-                      onChange={(e) => setVolume(Number(e.target.value))}
-                      className="w-full h-1 appearance-none bg-[var(--muted)] rounded-full overflow-hidden cursor-pointer"
-                      style={{ 
-                        background: `linear-gradient(to right, var(--foreground) 0%, var(--foreground) ${volume}%, var(--muted) ${volume}%, var(--muted) 100%)` 
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
             
             {/* User menu */}
             <div className="relative" ref={userMenuRef}>
@@ -521,7 +418,7 @@ export default function Header() {
               <div className="relative h-14 w-14 bg-[var(--muted)] rounded-md overflow-hidden shadow-sm">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[var(--primary)]">
-                    <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
+                    <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
                   </svg>
                 </div>
               </div>
@@ -610,7 +507,7 @@ export default function Header() {
             {/* Mobile menu content */}
             <div className="p-5 flex items-center gap-2 border-b border-[var(--border)]">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-[var(--primary)]">
-                <path fillRule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clipRule="evenodd" />
+                <path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2 0v12h16V6H4zm1 2h14v8H5V8zm2 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm10 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-5 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
               </svg>
               <h1 className="text-xl font-semibold text-[var(--foreground)]">
                 <span className="text-[var(--primary)]">mixtapes</span><span className="opacity-60">.net</span>
@@ -619,15 +516,32 @@ export default function Header() {
             
             {/* Mobile search */}
             <div className="p-4 border-b border-[var(--border)]">
-              <div className="relative">
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                if (searchValue.trim()) {
+                  // Direct navigation
+                  window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
+                } else {
+                  window.location.href = '/search';
+                }
+              }} className="relative">
                 <input
                   type="text"
                   placeholder="Search mixtapes..."
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
-                  className="w-full h-10 px-4 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
+                  className="w-full h-10 px-4 pr-10 rounded-lg bg-[var(--muted)]/70 border border-[var(--border)] outline-none transition-all text-sm focus:bg-[var(--background)] focus:ring-2 focus:ring-[var(--primary)]/30"
                 />
-              </div>
+                <button 
+                  type="submit" 
+                  className="absolute right-3 top-2.5 text-[var(--muted-foreground)]"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                  </svg>
+                </button>
+              </form>
             </div>
             
             {/* Mobile navigation */}
@@ -642,7 +556,16 @@ export default function Header() {
                           ? 'bg-[var(--primary)] text-white font-medium' 
                           : 'hover:bg-[var(--muted)] text-[var(--foreground)]'
                       }`}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={(e) => {
+                        if (item.path === '/search') {
+                          e.preventDefault();
+                          if (searchValue.trim()) {
+                            window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
+                          } else {
+                            window.location.href = '/search';
+                          }
+                        }
+                      }}
                     >
                       <span className="mr-3">{item.icon}</span>
                       <span>{item.name}</span>
@@ -675,7 +598,16 @@ export default function Header() {
                           ? 'text-[var(--primary)] font-medium bg-[var(--muted)]' 
                           : 'hover:bg-[var(--muted)] text-[var(--foreground)]'
                       }`}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={(e) => {
+                        if (item.path === '/search') {
+                          e.preventDefault();
+                          if (searchValue.trim()) {
+                            window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
+                          } else {
+                            window.location.href = '/search';
+                          }
+                        }
+                      }}
                     >
                       <span className="mr-3 opacity-70">{item.icon}</span>
                       <span>{item.name}</span>
@@ -760,25 +692,24 @@ export default function Header() {
             className="fixed top-[calc(var(--header-height)+0.75rem)] left-4 right-4 bg-[var(--background)] border border-[var(--border)] rounded-lg shadow-lg p-4 transform transition-transform fade-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <form onSubmit={handleSearchSubmit}>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              if (searchValue.trim()) {
+                // Direct navigation
+                window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
+              } else {
+                window.location.href = '/search';
+              }
+            }}>
               <div className="relative">
                 <input 
                   type="text" 
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   placeholder="Search for mixtapes, artists, or tracks..."
-                  className="w-full h-12 px-4 pr-10 rounded-lg bg-[var(--muted)]/30 border border-[var(--border)] outline-none"
+                  className="w-full h-12 px-4 rounded-lg bg-[var(--muted)]/30 border border-[var(--border)] outline-none"
                   autoFocus
                 />
-                <button 
-                  type="submit"
-                  className="absolute right-3 top-3 text-[var(--muted-foreground)]"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.3-4.3" />
-                  </svg>
-                </button>
               </div>
             </form>
           </div>
@@ -793,12 +724,11 @@ export default function Header() {
             href={item.path}
             onClick={(e) => {
               if (item.path === '/search') {
+                e.preventDefault();
                 if (searchValue.trim()) {
-                  e.preventDefault();
-                  router.push(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+                  window.location.href = `/search?q=${encodeURIComponent(searchValue.trim())}`;
                 } else {
-                  e.preventDefault();
-                  setShowSearch(true);
+                  window.location.href = '/search';
                 }
               }
             }}
